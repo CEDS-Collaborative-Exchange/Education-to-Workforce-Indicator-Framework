@@ -7,3 +7,13 @@ For additional information, explore the <a href="https://educationtoworkforce.or
 Comprehensive documentation for the E-W Indicator Framework can be found here (need to insert link). This documentation covers details on the indicators, data models, and the methodology used within the framework.
 ## Setup Guide
 To set up the E-W Indicator Framework on your local environment, follow the Setup Guide (need to insert link).
+## Assistance
+For assistance with the E-W Indicator Framework, please refer to the documentation or contact our support team using the information provided below.
+## Table of Contents
+Explore the key indicators linked to each essential question by navigating to the relevant folders:
+<ul>
+  <li>Essential Question 1: Do students and families have access to adequate public supports and neighborhood conditions to enable them to succeed academically and in the workforce?
+  <li>Indicator: Postsecondary enrollment after high school
+</ul>
+•	Essential Question 1: Do students and families have access to adequate public supports and neighborhood conditions to enable them to succeed academically and in the workforce?
+o	Indicator: Postsecondary enrollment after high school
