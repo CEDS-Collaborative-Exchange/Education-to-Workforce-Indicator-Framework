@@ -13,7 +13,7 @@ For assistance with the E-W Indicator Framework, please refer to the documentati
 Explore the key indicators linked to each essential question by navigating to the relevant folders:
 <ul>
   <li>Essential Question 1: Do students and families have access to adequate public supports and neighborhood conditions to enable them to succeed academically and in the workforce?
-  <li>Indicator: Postsecondary enrollment after high school
+  <li>- Indicator: Postsecondary enrollment after high school
 </ul>
 •	Essential Question 1: Do students and families have access to adequate public supports and neighborhood conditions to enable them to succeed academically and in the workforce?
 o	Indicator: Postsecondary enrollment after high school
