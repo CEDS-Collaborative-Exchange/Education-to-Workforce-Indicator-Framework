@@ -1,4 +1,4 @@
-# Education-to-Workforce-Indicator-Framework
+# Education-to-Workforce Indicator Framework
 ## Background 
 The Education-to-Workforce (E-W) Indicator Framework is designed to track and analyze key metrics to help organizations across education, government, and workforce sectors use data to inform policies and actions that promote equitable educational and career outcomes. Developed with input from over 30 experts and incorporating insights from over 40 existing frameworks, the E-W Framework encourages the sharing of data to support students from early education through their careers.
 ## Links to E-W Framework Website
