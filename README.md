@@ -17,4 +17,7 @@ Explore the key indicators linked to each essential question by navigating to th
       <li>Indicator: Postsecondary enrollment after high school
     </ul>
   </ul>
-
+## Contact Information
+For questions, issues, or further assistance, please contact the support team at (insert email)
+## Disclaimer
+The reports and data hosted in this repository are provided for informational and analytical purposes. While we strive to provide accurate and up-to-date information, the maintainers of this repository are not liable for any direct or indirect consequences resulting from the use or modification of the reports. Please verify any findings before applying them in decision-making processes.
