@@ -1,3 +1,4 @@
+**Indicators**
 - SAT and ACT participation and performance
 - FAFSA completion
 - College applications
