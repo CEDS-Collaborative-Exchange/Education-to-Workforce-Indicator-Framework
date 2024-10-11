@@ -1,3 +1,4 @@
+**Indicators**
 - Developmental progress: language and literacy
 - Developmental progress: cognition
 - Early grades on track
