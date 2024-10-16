@@ -10,13 +10,7 @@ To set up the E-W Indicator Framework on your local environment, follow the Setu
 ## Assistance
 For assistance with the E-W Indicator Framework, please refer to the documentation or contact our support team using the email: ewframework@aemcorp.com. 
 ## Navigation
-Explore the key indicators linked to each essential question by navigating to the relevant folders:
-<ul>
-  <li>Essential Question 1: Do students and families have access to adequate public supports and neighborhood conditions to enable them to succeed academically and in the workforce?
-    <ul>
-      <li>Indicator: Postsecondary enrollment after high school
-    </ul>
-  </ul>
-  
+To access the reports for each indicator, navigate to the Essential Questions folder. Inside, you'll find dedicated folders for each question, featuring a list of indicators, including those still in development and others with direct links to available reports.
+
 ## Disclaimer
 The reports and data hosted in this repository are provided for informational and analytical purposes. While we strive to provide accurate and up-to-date information, the maintainers of this repository are not liable for any direct or indirect consequences resulting from the use or modification of the reports. Please verify any findings before applying them in decision-making processes.
