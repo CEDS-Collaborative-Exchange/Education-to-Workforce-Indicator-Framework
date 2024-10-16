@@ -8,7 +8,7 @@ Comprehensive documentation for the E-W Indicator Framework can be found here (n
 ## Setup Guide
 To set up the E-W Indicator Framework on your local environment, follow the Setup Guide (need to insert link).
 ## Assistance
-For assistance with the E-W Indicator Framework, please refer to the documentation or contact our support team using the information provided below.
+For assistance with the E-W Indicator Framework, please refer to the documentation or contact our support team using the email: ewframework@aemcorp.com. 
 ## Navigation
 Explore the key indicators linked to each essential question by navigating to the relevant folders:
 <ul>
@@ -17,8 +17,6 @@ Explore the key indicators linked to each essential question by navigating to th
       <li>Indicator: Postsecondary enrollment after high school
     </ul>
   </ul>
-
-## Contact Information
-For questions, issues, or further assistance, please contact the support team at (insert email)
+  
 ## Disclaimer
 The reports and data hosted in this repository are provided for informational and analytical purposes. While we strive to provide accurate and up-to-date information, the maintainers of this repository are not liable for any direct or indirect consequences resulting from the use or modification of the reports. Please verify any findings before applying them in decision-making processes.
