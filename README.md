@@ -12,5 +12,9 @@ For assistance with the E-W Indicator Framework, please refer to the documentati
 ## Navigation
 To access the reports for each indicator, navigate to the [Essential Questions](https://github.com/CEDS-Collaborative-Exchange/Education-to-Workforce-Indicator-Framework/tree/main/Essential%20Questions) folder. Inside, you'll find dedicated folders for each question, featuring a list of indicators, including those still in development and others with direct links to available reports.
 
+Each indicator folder includes:
+* A downloadable Power BI file (.pbix) to access the report.
+* A .txt file with SQL code for the custom view required to interact with the report.
+
 ## Disclaimer
 The reports and data hosted in this repository are provided for informational and analytical purposes. While we strive to provide accurate and up-to-date information, the maintainers of this repository are not liable for any direct or indirect consequences resulting from the use or modification of the reports. Please verify any findings before applying them in decision-making processes.
