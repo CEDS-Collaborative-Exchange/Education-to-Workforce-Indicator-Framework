@@ -6,7 +6,7 @@ For additional information, explore the <a href="https://educationtoworkforce.or
 ## Setup Guide
 To set up the E-W Indicator Framework report(s) in your local environment, follow the [Setup Guide](https://github.com/CEDS-Collaborative-Exchange/Education-to-Workforce-Indicator-Framework/blob/main/E-W%20Framework%20Indicator%20Report(s)%20Setup%20Guide.docx).
 ## Navigation
-To access the reports for each indicator, navigate to the [Essential Questions](https://github.com/CEDS-Collaborative-Exchange/Education-to-Workforce-Indicator-Framework/tree/main/Essential%20Questions) folder. Inside, you'll find dedicated folders for each question, containing a list of indicators. These include reports currently in development and currently available reports with direct links.
+To access the reports for each indicator, navigate to the [Essential Questions](https://github.com/CEDS-Collaborative-Exchange/Education-to-Workforce-Indicator-Framework/tree/main/Essential%20Questions) folder. Inside, you'll find dedicated folders for each question, containing a list of indicators. Each indicator includes a list of reports in development or currently available with direct links.
 
 Each indicator folder includes:
 * A downloadable Power BI file (.pbix) to access the report.
