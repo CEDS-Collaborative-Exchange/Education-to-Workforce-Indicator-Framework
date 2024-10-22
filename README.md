@@ -6,7 +6,7 @@ For additional information, explore the <a href="https://educationtoworkforce.or
 ## Documentation
 Comprehensive documentation for the E-W Indicator Framework can be found here (need to insert link). This documentation covers details on the indicators, data models, and the methodology used within the framework.
 ## Setup Guide
-To set up the E-W Indicator Framework on your local environment, follow the Setup Guide (need to insert link).
+To set up the E-W Indicator Framework on your local environment, follow the [Setup Guide](https://github.com/CEDS-Collaborative-Exchange/Education-to-Workforce-Indicator-Framework/blob/main/E-W%20Framework%20Indicator%20Report(s)%20Setup%20Guide.docx).
 ## Assistance
 For assistance with the E-W Indicator Framework, please refer to the documentation or contact our support team using the email: ewframework@aemcorp.com. 
 ## Navigation
