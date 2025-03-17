@@ -1,10 +1,10 @@
 # **Indicators**
 
 ## Reports Available
+- High School Graduation
 - [Postsecondary enrollment directly after high school graduation](https://github.com/CEDS-Collaborative-Exchange/Education-to-Workforce-Indicator-Framework/tree/main/Indicators/Postsecondary%20enrollment%20directly%20after%20high%20school%20graduation)
 
 ## Reports Under Development
-- High School Graduation
 - Senior Summer on track
 - Successful career transition after high school
 - CTE pathway concentration
