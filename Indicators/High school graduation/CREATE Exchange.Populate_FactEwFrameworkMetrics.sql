@@ -54,12 +54,10 @@ CREATE TABLE #EWFrameworkData
            ,[Individual With Current Or Past Child Welfare Involvement] nvarchar(100)
            ,[Justice Involvement] nvarchar(100)
            ,[Age] nvarchar(100)
-           ,[Age Group] nvarchar(100)
            ,[American Indian or Alaska Native] bit
            ,[Asian] bit
            ,[Black or African American] bit
            ,[Hispanic or Latino] bit
-           ,[Middle Eastern or North African] bit
            ,[White] bit
            ,[Native Hawaiian or Pacific Islander] bit
            ,[Sex Code] nvarchar(50)
@@ -86,8 +84,8 @@ CREATE TABLE #EWFrameworkData
            ,[First Generation College Student Description] nvarchar(200)
            ,[Migrant Status Code] nvarchar(50)
            ,[Migrant Status Description] nvarchar(200)
-           ,[ISO 6393 Language Code Home Code] nvarchar(50)
-           ,[ISO 6393 Language Code Home Description] nvarchar(200)
+           ,[ISO 639-3 Language Code Home Code] nvarchar(50)
+           ,[ISO 639-3 Language Code Home Description] nvarchar(200)
            ,[English Learner Status Code] nvarchar(50)
            ,[English Learner Status Description] nvarchar(200)
            ,[Postsecondary Institution Full Time Equivalency] decimal(3,2)
@@ -140,11 +138,15 @@ CREATE TABLE #EWFrameworkData
            ,[High School Diploma Type Code] nvarchar(50)
            ,[High School Diploma Type Description] nvarchar(200)
 		   ,[Diploma or Credential Award Date] datetime
-           ,[OrganizationName] nvarchar(1000)
-           ,[OrganizationIdentifierNces] nvarchar(100)
-           ,[OrganizationIdentifierSea] nvarchar(100)
-           ,[ParentOrganizationIdentifierSea] nvarchar(100)
-           ,[ReportLevel] nvarchar(40)
+		   ,[LeaOrganizationName] [nvarchar](1000) NULL
+		   ,[LeaIdentifierSea] [nvarchar](50) NULL
+		   ,[LeaIdentifierNces] [nvarchar](50) NULL
+		   ,[K12SchoolOrganizationName] [nvarchar](1000) NULL
+		   ,[K12SchoolSchoolIdentifierSea] [nvarchar](50) NULL
+	   	   ,[K12SchoolSchoolIdentifierNces] [nvarchar](50) NULL
+		   ,[PostsecondaryInstitutionOrganizationName] [nvarchar](1000) NULL
+		   ,[PostsecondaryInstitutionSchoolIdentifierSea] [nvarchar](50) NULL
+		   ,[IPEDSIdentifier] [int] NULL 			 
            ,[StateAbbreviationCode] nvarchar(50)
            ,[StateAbbreviationDescription] nvarchar(200)
            ,[High School Graduate] nvarchar(7)
@@ -152,11 +154,7 @@ CREATE TABLE #EWFrameworkData
            ,[High School Graduate Five Year] nvarchar(7)
            ,[High School Graduate Six Year] nvarchar(7)
            ,[High School Graduate Postsecondary Enrollment] nvarchar(7)
-           ,[Grade 12 Student] nvarchar(7)
            ,[Grade 12 Three College Applications] nvarchar(7)
-           ,[High School Student Pass One Early College Course] nvarchar(7)
-           ,[High School Student] nvarchar(7)
-           ,[Credit Bearing Score or Postsecondary Credit] nvarchar(7)
 		   ,[High School Graduation School Year] int
 		   ,[SchoolYear] int
 		   ,[K12SchoolId] int)
@@ -213,12 +211,14 @@ AND rdkes.ExitOrWithdrawalTypeCode NOT IN --Codes that indicate a transfer out
 UPDATE #EWFrameworkData
 SET [School Type Code] = dim.SchoolTypeCode
 	,[School Type Description] = dim.SchoolTypeDescription
-	,OrganizationName = dim.NameOfInstitution
+	,K12SchoolOrganizationName = dim.NameOfInstitution
 	,StateAbbreviationCode = dim.StateAbbreviationCode
 	,StateAbbreviationDescription = dim.StateAbbreviationDescription
-	,OrganizationIdentifierSea = dim.SchoolIdentifierSea
-	,OrganizationIdentifierNces = dim.SchoolIdentifierNces
-	,ParentOrganizationIdentifierSea = dim.LeaIdentifierSea
+	,K12SchoolSchoolIdentifierSea = dim.SchoolIdentifierSea
+	,K12SchoolSchoolIdentifierNces = dim.SchoolIdentifierNces
+	,LeaIdentifierSea = dim.LeaIdentifierSea
+	,LeaIdentifierNces = dim.LeaIdentifierNces
+	,LeaOrganizationName = dim.LeaOrganizationName
 	,K12SchoolId = dim.DimK12SchoolId
 FROM #EWFrameworkData efm
 JOIN RDS.FactK12StudentEnrollments fse
@@ -258,10 +258,6 @@ AND NOT EXISTS (SELECT 'x' FROM RDS.DimK12EnrollmentStatuses rdkes
 UPDATE #EWFrameworkData
 SET [Cohort Year] = ([Cohort Graduation Year] - 3)
 WHERE [Cohort Graduation Year] IS NOT NULL
-
-UPDATE #EWFrameworkData
-SET ReportLevel = 'K12School'
-
 
 -------------------------------------------
 ----STEP 2 - Add Demographic Data      ----
@@ -595,19 +591,6 @@ JOIN RDS.DimRaces dim
 	ON bridge.RaceId = dim.DimRaceId
 WHERE RaceCode = 'White'
 
-UPDATE #EWFrameworkData
-SET [Middle Eastern or North African] = '1'
-FROM #EWFrameworkData efm
-JOIN RDS.FactK12StudentEnrollments fse
-	ON efm.PersonId = fse.K12StudentId
-	AND efm.K12SchoolId = fse.K12SchoolId
-	AND efm.SchoolYearId = fse.SchoolYearId
-JOIN RDS.BridgeK12StudentEnrollmentRaces bridge
-	ON fse.FactK12StudentEnrollmentId = bridge.FactK12StudentEnrollmentId
-JOIN RDS.DimRaces dim
-	ON bridge.RaceId = dim.DimRaceId
-WHERE RaceCode = 'MiddleEasternorNorthAfrican'
-
 ----Military Connected Student Indicator / Active Military Status / Military Veteran Status Indicator
 
 UPDATE #EWFrameworkData
@@ -632,7 +615,7 @@ WHERE efm.[Cohort Graduation Year] = CohortGraduationYear.SchoolYear
 ----ISO 6393 Language Code Home
 
 UPDATE #EWFrameworkData
-SET [ISO 6393 Language Code Home Code] = dim.Iso6392LanguageCodeCode, [ISO 6393 Language Code Home Description] = dim.Iso6392LanguageCodeDescription
+SET [ISO 639-3 Language Code Home Code] = dim.Iso6392LanguageCodeCode, [ISO 639-3 Language Code Home Description] = dim.Iso6392LanguageCodeDescription
 FROM #EWFrameworkData efm
 JOIN RDS.FactK12StudentEnrollments fse
 	ON efm.PersonId = fse.K12StudentId
@@ -643,7 +626,7 @@ JOIN RDS.DimLanguages dim
 JOIN RDS.DimSchoolYears CohortGraduationYear
 	ON fse.CohortGraduationYearId = CohortGraduationYear.DimSchoolYearId
 WHERE efm.[Cohort Graduation Year] = CohortGraduationYear.SchoolYear
-	AND efm.[ISO 6393 Language Code Home Code] IS NULL
+	AND efm.[ISO 639-3 Language Code Home Code] IS NULL
 
 ------------------------------------------------------
 ---- Begin pulling data from FactK12StudentCounts ----
@@ -838,7 +821,6 @@ WHERE [Asian] = '0'
 	AND [American Indian or Alaska Native] = '1'
 	AND [Black or African American] = '0' 
 	AND [Hispanic or Latino] = '0' 
-	AND [Middle Eastern or North African] = '0' 
 	AND [Native Hawaiian or Pacific Islander] = '0'
 	AND [White] = '0'
 	AND [Race and Ethnicity] IS NULL
@@ -849,7 +831,6 @@ WHERE [Asian] = '1'
 	AND [American Indian or Alaska Native] = '0'
 	AND [Black or African American] = '0' 
 	AND [Hispanic or Latino] = '0' 
-	AND [Middle Eastern or North African] = '0' 
 	AND [Native Hawaiian or Pacific Islander] = '0'
 	AND [White] = '0'
 	AND [Race and Ethnicity] IS NULL
@@ -860,7 +841,6 @@ WHERE [Asian] = '0'
 	AND [American Indian or Alaska Native] = '0'
 	AND [Black or African American] = '1' 
 	AND [Hispanic or Latino] = '0' 
-	AND [Middle Eastern or North African] = '0' 
 	AND [Native Hawaiian or Pacific Islander] = '0'
 	AND [White] = '0'
 	AND [Race and Ethnicity] IS NULL
@@ -871,18 +851,6 @@ WHERE [Asian] = '0'
 	AND [American Indian or Alaska Native] = '0'
 	AND [Black or African American] = '0' 
 	AND [Hispanic or Latino] = '1' 
-	AND [Middle Eastern or North African] = '0' 
-	AND [Native Hawaiian or Pacific Islander] = '0'
-	AND [White] = '0'
-	AND [Race and Ethnicity] IS NULL
-
-UPDATE #EWFrameworkData 
-SET [Race and Ethnicity] = 'Middle Eastern or North African' 
-WHERE [Asian] = '0' 
-	AND [American Indian or Alaska Native] = '0'
-	AND [Black or African American] = '0' 
-	AND [Hispanic or Latino] = '0' 
-	AND [Middle Eastern or North African] = '1' 
 	AND [Native Hawaiian or Pacific Islander] = '0'
 	AND [White] = '0'
 	AND [Race and Ethnicity] IS NULL
@@ -893,7 +861,6 @@ WHERE [Asian] = '0'
 	AND [American Indian or Alaska Native] = '0'
 	AND [Black or African American] = '0' 
 	AND [Hispanic or Latino] = '0' 
-	AND [Middle Eastern or North African] = '0' 
 	AND [Native Hawaiian or Pacific Islander] = '1'
 	AND [White] = '0'
 	AND [Race and Ethnicity] IS NULL
@@ -904,7 +871,6 @@ WHERE [Asian] = '0'
 	AND [American Indian or Alaska Native] = '0'
 	AND [Black or African American] = '0' 
 	AND [Hispanic or Latino] = '0' 
-	AND [Middle Eastern or North African] = '0' 
 	AND [Native Hawaiian or Pacific Islander] = '0'
 	AND [White] = '1'
 	AND [Race and Ethnicity] IS NULL
@@ -924,7 +890,7 @@ UPDATE #EWFrameworkData SET [Individuals Experiencing Homelessness] = [Homelessn
 
 ---- Home Language
 UPDATE #EWFrameworkData
-SET [Home Language] = [ISO 6393 Language Code Home Description]
+SET [Home Language] = [ISO 639-3 Language Code Home Description]
 
 ---- First Generation College Student
 UPDATE #EWFrameworkData
@@ -1088,12 +1054,10 @@ INSERT INTO [Exchange].[FactEwFrameworkMetrics]
            ,[Individual With Current Or Past Child Welfare Involvement]
            ,[Justice Involvement]
            ,[Age]
-           ,[Age Group]
            ,[American Indian or Alaska Native]
            ,[Asian]
            ,[Black or African American]
            ,[Hispanic or Latino]
-           ,[Middle Eastern or North African]
            ,[White]
            ,[Native Hawaiian or Pacific Islander]
            ,[Sex Code]
@@ -1120,8 +1084,8 @@ INSERT INTO [Exchange].[FactEwFrameworkMetrics]
            ,[First Generation College Student Description]
            ,[Migrant Status Code]
            ,[Migrant Status Description]
-           ,[ISO 6393 Language Code Home Code]
-           ,[ISO 6393 Language Code Home Description]
+           ,[ISO 639-3 Language Code Home Code]
+           ,[ISO 639-3 Language Code Home Description]
            ,[English Learner Status Code]
            ,[English Learner Status Description]
            ,[Postsecondary Institution Full Time Equivalency]
@@ -1174,11 +1138,15 @@ INSERT INTO [Exchange].[FactEwFrameworkMetrics]
            ,[High School Diploma Type Code]
            ,[High School Diploma Type Description]
 		   ,[Diploma or Credential Award Date]
-           ,[OrganizationName]
-           ,[OrganizationIdentifierNces]
-           ,[OrganizationIdentifierSea]
-           ,[ParentOrganizationIdentifierSea]
-           ,[ReportLevel]
+		   ,[LeaOrganizationName]
+		   ,[LeaIdentifierSea]
+		   ,[LeaIdentifierNces]
+		   ,[K12SchoolOrganizationName]
+		   ,[K12SchoolSchoolIdentifierSea]
+	   	   ,[K12SchoolSchoolIdentifierNces]
+		   ,[PostsecondaryInstitutionOrganizationName]
+		   ,[PostsecondaryInstitutionSchoolIdentifierSea]
+		   ,[IPEDSIdentifier]
            ,[StateAbbreviationCode]
            ,[StateAbbreviationDescription]
            ,[High School Graduate]
@@ -1186,11 +1154,7 @@ INSERT INTO [Exchange].[FactEwFrameworkMetrics]
            ,[High School Graduate Five Year]
            ,[High School Graduate Six Year]
            ,[High School Graduate Postsecondary Enrollment]
-           ,[Grade 12 Student]
            ,[Grade 12 Three College Applications]
-           ,[High School Student Pass One Early College Course]
-           ,[High School Student]
-           ,[Credit Bearing Score or Postsecondary Credit]
 		   ,[High School Graduation School Year])
 SELECT
             [PersonId]
@@ -1222,12 +1186,10 @@ SELECT
            ,[Individual With Current Or Past Child Welfare Involvement]
            ,[Justice Involvement]
            ,[Age]
-           ,[Age Group]
            ,[American Indian or Alaska Native]
            ,[Asian]
            ,[Black or African American]
            ,[Hispanic or Latino]
-           ,[Middle Eastern or North African]
            ,[White]
            ,[Native Hawaiian or Pacific Islander]
            ,[Sex Code]
@@ -1254,8 +1216,8 @@ SELECT
            ,[First Generation College Student Description]
            ,[Migrant Status Code]
            ,[Migrant Status Description]
-           ,[ISO 6393 Language Code Home Code]
-           ,[ISO 6393 Language Code Home Description]
+           ,[ISO 639-3 Language Code Home Code]
+           ,[ISO 639-3 Language Code Home Description]
            ,[English Learner Status Code]
            ,[English Learner Status Description]
            ,[Postsecondary Institution Full Time Equivalency]
@@ -1308,11 +1270,15 @@ SELECT
            ,[High School Diploma Type Code]
            ,[High School Diploma Type Description]
 		   ,[Diploma or Credential Award Date]
-           ,[OrganizationName]
-           ,[OrganizationIdentifierNces]
-           ,[OrganizationIdentifierSea]
-           ,[ParentOrganizationIdentifierSea]
-           ,[ReportLevel]
+		   ,[LeaOrganizationName]
+		   ,[LeaIdentifierSea]
+		   ,[LeaIdentifierNces]
+		   ,[K12SchoolOrganizationName]
+		   ,[K12SchoolSchoolIdentifierSea]
+	   	   ,[K12SchoolSchoolIdentifierNces]
+		   ,[PostsecondaryInstitutionOrganizationName]
+		   ,[PostsecondaryInstitutionSchoolIdentifierSea]
+		   ,[IPEDSIdentifier]
            ,[StateAbbreviationCode]
            ,[StateAbbreviationDescription]
            ,[High School Graduate]
@@ -1320,11 +1286,7 @@ SELECT
            ,[High School Graduate Five Year]
            ,[High School Graduate Six Year]
            ,[High School Graduate Postsecondary Enrollment]
-           ,[Grade 12 Student]
            ,[Grade 12 Three College Applications]
-           ,[High School Student Pass One Early College Course]
-           ,[High School Student]
-           ,[Credit Bearing Score or Postsecondary Credit]
 		   ,[High School Graduation School Year]
 FROM #EWFrameworkData
 
