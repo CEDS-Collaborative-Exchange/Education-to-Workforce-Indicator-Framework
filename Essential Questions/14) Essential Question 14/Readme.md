@@ -1,7 +1,7 @@
 # **Indicators**
 
 ## Reports Available
-- [Question 14 Analysis - High School Graduation to Post Secondary Enrollment](https://github.com/CEDS-Collaborative-Exchange/Education-to-Workforce-Indicator-Framework/tree/main/Essential%20Questions/14)%20Essential%20Question%2014/Q14%20Analysis)
+- [Question 14 Analysis - High School Graduation to Post Secondary Enrollment](https://github.com/CEDS-Collaborative-Exchange/Education-to-Workforce-Indicator-Framework/tree/main/Essential%20Questions/14)
 - [High school graduation](https://github.com/CEDS-Collaborative-Exchange/Education-to-Workforce-Indicator-Framework/tree/main/Indicators/High%20school%20graduation)
 - [Postsecondary enrollment directly after high school graduation](https://github.com/CEDS-Collaborative-Exchange/Education-to-Workforce-Indicator-Framework/tree/main/Indicators/Postsecondary%20enrollment%20directly%20after%20high%20school%20graduation)
 
